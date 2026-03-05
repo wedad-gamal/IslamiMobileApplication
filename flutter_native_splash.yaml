@@ -1,0 +1,27 @@
+flutter_native_splash:
+
+
+  color: "#202020"  ##====================================[REQUIRED]==========
+  image: assets/images/logo_splash.png
+
+  # visit https://developer.android.com/reference/android/view/Gravity
+  #ios_content_mode: center      # scaleToFill, scaleAspectFit, scaleAspectFill,
+  # center, top, bottom, left, right, topLeft, topRight, bottomLeft, or bottomRight.
+  # visit https://developer.apple.com/documentation/uikit/uiview/contentmode
+  #web_image_mode: center        # center, contain, stretch, cover
+
+  # general branding for all platform (except android 12+):
+  # allows you to specify an image used as branding in the splash screen. should be png.
+  branding: assets/images/branding.png
+  fullscreen: true                # default false
+  android_12:
+    # background color
+    color: "#202020"
+    image: assets/images/logo_splash.png
+    icon_background_color: "#202020"
+    # icon_background_color_dark: "#eeeeee"
+
+    # branding:
+    # The branding image dimensions must be 800x320 px.
+    branding: assets/images/branding.png
+    #branding_dark: assets/dart_dark.png
