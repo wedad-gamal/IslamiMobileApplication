@@ -2,9 +2,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
+import 'package:islami_application/ui/home/tabs/hadeth_tab/hadeth_tab.dart';
 import 'package:islami_application/ui/home/tabs/home_tab/home_tab.dart';
 class HomeScreen extends StatefulWidget {
-  static const String routeName = "/";
+  static const String routeName = "homeScreen";
   const HomeScreen({super.key});
 
   @override
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> tabs = [
     HomeTab(),
-    Container(color: Colors.green),
+    HadethTab(),
     Container(color: Colors.blue),
     Container(color: Colors.yellow),
     Container(color: Colors.pink),
