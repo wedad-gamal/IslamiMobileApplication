@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islami_application/ui/home/tabs/home_tab/models/sura.dart';
+import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 import 'package:islami_application/ui/sura_details/sura_details_screen.dart';
 
 import '../../../../../theme/text_styles.dart';

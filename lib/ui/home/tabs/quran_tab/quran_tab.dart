@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
-import 'package:islami_application/ui/home/tabs/home_tab/models/sura.dart';
-import 'package:islami_application/ui/home/tabs/home_tab/widgets/sura_row.dart';
+import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
+import 'package:islami_application/ui/home/tabs/quran_tab/widgets/sura_row.dart';
 
-class HomeTab extends StatelessWidget {
+class QuranTab extends StatelessWidget {
 
-  const HomeTab({super.key});
+  const QuranTab({super.key});
 
   @override
   Widget build(BuildContext context) {
