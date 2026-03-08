@@ -4,6 +4,7 @@ import 'package:islami_application/ui/home/home_screen.dart';
 import 'package:islami_application/ui/home/tabs/hadeth_tab/models/hadeth.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 import 'package:islami_application/ui/intro/intro_screen.dart';
+import 'package:islami_application/ui/onboarding/onboarding_screen.dart';
 import 'package:islami_application/ui/sura_details/sura_details_screen.dart';
 
 void main(){
@@ -27,7 +28,8 @@ class IslamiApplication extends StatelessWidget {
         HadethDetailsScreen.routeName : (context) {
           Hadeth hadeth= ModalRoute.of(context)?.settings.arguments as Hadeth;
           return HadethDetailsScreen(hadeth: hadeth);
-        }
+        },
+        OnboardingScreen.routeName : (context) => OnboardingScreen(),
       },
       initialRoute: IntroScreen.routeName,
     );
