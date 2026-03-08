@@ -3,6 +3,9 @@ import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/widgets/sura_row.dart';
+import 'package:islami_application/ui/home/tabs/widgets/base_tab.dart';
+
+
 
 class QuranTab extends StatelessWidget {
 
@@ -12,29 +15,15 @@ class QuranTab extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Stack(
-      children: [
-        Image.asset("assets/images/quran_tab/background.png", fit: BoxFit.cover, width: double.infinity, height: double.infinity,),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.black,
-                AppColors.black.withAlpha(70),
-              ],
-              begin: AlignmentGeometry.bottomCenter,
-              end: AlignmentGeometry.topCenter
-            )
-          )
-        ),
-        CustomScrollView(
+    return  BaseTab(image:"assets/images/quran_background.png",
+      child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: SafeArea(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/images/quran_tab/logo.png"),
+                    Image.asset("assets/images/logo.png"),
                   ],
                 ),
               ),
@@ -46,29 +35,29 @@ class QuranTab extends StatelessWidget {
                   style: TextStyles.labelMediumStyle(),
                   cursorColor: AppColors.gold,
                   decoration: InputDecoration(
-                    fillColor: AppColors.black.withAlpha(60),
-                    filled: true,
+                      fillColor: AppColors.black.withAlpha(60),
+                      filled: true,
 
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: AppColors.gold
-                      )
-                    ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: AppColors.gold
+                          )
+                      ),
 
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(
-                        width: 1,
-                        color: AppColors.gold
-                      )
-                    ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: AppColors.gold
+                          )
+                      ),
 
-                    hintText: "Sura Name",
-                    hintStyle: TextStyles.labelMediumStyle(),
+                      hintText: "Sura Name",
+                      hintStyle: TextStyles.labelMediumStyle(),
 
-                    prefixIcon: ImageIcon(AssetImage("assets/images/quran_tab/prefix_sura_name.png"), color: AppColors.gold,)
+                      prefixIcon: ImageIcon(AssetImage("assets/images/prefix_sura_name.png"), color: AppColors.gold,)
                   ),
                 ),
               ),
@@ -89,15 +78,13 @@ class QuranTab extends StatelessWidget {
               itemCount: quranList.length,
               itemBuilder: (context, index) {
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: SuraRow(sura: quranList[index]),
-              );
-            }, separatorBuilder: (context, index) => Divider(indent: 40, endIndent: 40,),)
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: SuraRow(sura: quranList[index]),
+                );
+              }, separatorBuilder: (context, index) => Divider(indent: 40, endIndent: 40,),)
           ]
-        )
-      ]
-    );
+      ),);
   }
 
 }

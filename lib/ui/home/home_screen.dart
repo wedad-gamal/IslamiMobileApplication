@@ -4,6 +4,7 @@ import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
 import 'package:islami_application/ui/home/tabs/hadeth_tab/hadeth_tab.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab//quran_tab.dart';
+import 'package:islami_application/ui/home/tabs/sebha_tab/sebha_tab.dart';
 class HomeScreen extends StatefulWidget {
   static const String routeName = "homeScreen";
   const HomeScreen({super.key});
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
     QuranTab(),
     HadethTab(),
-    Container(color: Colors.green),
+    SebhaTab(),
     Container(color: Colors.blue),
     Container(color: Colors.yellow),
     Container(color: Colors.pink),

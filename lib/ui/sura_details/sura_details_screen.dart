@@ -38,7 +38,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
           Positioned(
             bottom: 0,
             child: Image.asset(
-              "assets/images/sura_details/img_bottom_decoration.png",
+              "assets/images/mosque_gold.png",
             ),
           ),
           Column(
@@ -49,14 +49,14 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
-                      "assets/images/sura_details/img_left_corner.png",
+                      "assets/images/img_left_corner.png",
                     ),
                     Text(
                       widget.sura.nameAr,
                       style: TextStyles.titleLargeStyle(color: AppColors.gold),
                     ),
                     Image.asset(
-                      "assets/images/sura_details/img_right_corner.png",
+                      "assets/images/img_right_corner.png",
                     ),
                   ],
                 ),
@@ -81,9 +81,9 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   }
 
   void _getSuraDetails() async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 2));
     var suraDetailsText = await rootBundle.loadString(
-      "assets/suras/${widget.sura.id}.txt",
+      "assets/files/${widget.sura.id}.txt",
     );
     var ayatList = suraDetailsText
         .trim()
