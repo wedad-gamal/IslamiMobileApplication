@@ -20,7 +20,7 @@ class SuraRow extends StatelessWidget {
           Stack(
             alignment: AlignmentGeometry.center,
             children: [
-              Image.asset("assets/images/quran_tab/sura_shape.png", height: 53),
+              Image.asset("assets/images/sura_shape_icon.png", height: 53),
               Text("${sura.id}", style: TextStyles.titleSmallStyle(),)
             ],
           ),
