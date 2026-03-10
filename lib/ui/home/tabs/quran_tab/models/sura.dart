@@ -18,6 +18,11 @@ class Sura {
     required this.nameAr,
     required this.versesNumber,
   });
+
+  @override
+  String toString() {
+    return "Id: $id - NameAr: $nameAr - NameEn: $nameEn";
+  }
 }
 
 /// A complete list of [Sura] objects containing all 114 chapters.
