@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:islami_application/constants/shared_preferences_constant.dart';
 import 'package:islami_application/ui/home/home_screen.dart';
 import 'package:islami_application/ui/onboarding/onboarding_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroScreen extends StatefulWidget {
   static const String routeName = "intro";
@@ -16,8 +18,15 @@ class _IntroScreenState extends State<IntroScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Future.delayed(Duration(milliseconds: 6000), () {
-      Navigator.pushReplacementNamed(context, OnboardingScreen.routeName);
+      _isFirstTime().then((value) {
+        if (value) {
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        } else {
+          Navigator.pushReplacementNamed(context, OnboardingScreen.routeName);
+        }
+      });
     });
   }
 
@@ -69,5 +78,11 @@ class _IntroScreenState extends State<IntroScreen> {
         ],
       ),
     );
+  }
+
+  Future<bool> _isFirstTime() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool isFirstTime =  sharedPreferences.getBool(SharedPreferencesConstant.isFirstTime.value) ?? false;
+    return isFirstTime;
   }
 }

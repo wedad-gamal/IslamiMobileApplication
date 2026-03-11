@@ -1,10 +1,12 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:islami_application/constants/shared_preferences_constant.dart';
 import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
 import 'package:islami_application/ui/home/home_screen.dart';
 import 'package:islami_application/ui/onboarding/widgets/build_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -117,6 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   TextButton(
                     onPressed: () {
                       if(isLastPage) {
+                        _saveFirstTime();
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       }
 
@@ -127,7 +130,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                     },
                     child: Text(
-                      "Next", style: TextStyles.labelSmallStyle(color: AppColors.gold, fontSize: 16),
+                      isLastPage?"Finish":"Next", style: TextStyles.labelSmallStyle(color: AppColors.gold, fontSize: 16),
+
                     ),
                   ),
                 ],
@@ -138,5 +142,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
+  }
+  Future<void> _saveFirstTime() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setBool(SharedPreferencesConstant.isFirstTime.value, true);
   }
 }
