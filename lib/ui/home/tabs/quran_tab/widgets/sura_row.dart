@@ -6,12 +6,14 @@ import '../../../../../theme/text_styles.dart';
 
 class SuraRow extends StatelessWidget {
   final Sura sura;
-  const SuraRow({required this.sura,super.key});
+  final Function(Sura) onTap;
+  const SuraRow({required this.sura,required this.onTap,super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
+        onTap(sura);
         Navigator.pushNamed(context, SuraDetailsScreen.routeName, arguments: sura);
 
       },

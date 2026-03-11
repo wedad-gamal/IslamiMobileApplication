@@ -32,7 +32,7 @@ class Sura {
 final List<Sura> quranList = List.generate(
   arabicQuranSuras.length,
       (index) => Sura(
-    id: index + 1, // IDs start at 1
+    id: index +1, // IDs start at 1
     nameEn: englishQuranSuras[index],
     nameAr: arabicQuranSuras[index],
     // Parsing String to Int since the source data is provided as Strings

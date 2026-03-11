@@ -7,6 +7,7 @@ import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = "/SuraDetailsScreen";
   final Sura sura;
+
   const SuraDetailsScreen({required this.sura, super.key});
 
   @override
@@ -18,7 +19,6 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getSuraDetails();
   }
@@ -81,7 +81,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   }
 
   void _getSuraDetails() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     var suraDetailsText = await rootBundle.loadString(
       "assets/files/${widget.sura.id}.txt",
     );
