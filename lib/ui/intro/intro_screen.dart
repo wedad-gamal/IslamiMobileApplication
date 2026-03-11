@@ -47,7 +47,7 @@ class _IntroScreenState extends State<IntroScreen> {
             child: Image.asset(
               "assets/images/islami_logo.png",
               width: width * 0.4,
-            ).zoomIn(duration: Duration(milliseconds: 600)),
+            ).zoomIn(duration: Duration(milliseconds: 1200)),
           ),
           Center(
             child: SafeArea(
@@ -63,17 +63,17 @@ class _IntroScreenState extends State<IntroScreen> {
           Positioned(
             top: 0,
             right: width * 0.03,
-            child: Image.asset("assets/images/glow.png").fadeInDown(),
+            child: Image.asset("assets/images/glow.png").fadeInDown(duration: Duration(milliseconds: 1200)),
           ),
           Positioned(
             left: 0,
             top: height * 0.2,
-            child: Image.asset("assets/images/shape-left.png").fadeInLeft(),
+            child: Image.asset("assets/images/shape-left.png").fadeInLeft(duration: Duration(milliseconds: 1200)),
           ),
           Positioned(
             right: 0,
             bottom: height * 0.2,
-            child: Image.asset("assets/images/shape-right.png").fadeInRight(),
+            child: Image.asset("assets/images/shape-right.png").fadeInRight(duration: Duration(milliseconds: 1200)),
           ),
         ],
       ),

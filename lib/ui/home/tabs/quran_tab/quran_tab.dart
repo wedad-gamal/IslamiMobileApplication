@@ -7,6 +7,7 @@ import 'package:islami_application/theme/text_styles.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/widgets/sura_row.dart';
 import 'package:islami_application/ui/home/tabs/widgets/base_tab.dart';
+import 'package:islami_application/ui/sura_details/sura_details_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranTab extends StatefulWidget {
@@ -31,8 +32,6 @@ class _QuranTabState extends State<QuranTab> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     return BaseTab(
       image: "assets/images/quran_background.png",
       child: CustomScrollView(
@@ -98,25 +97,31 @@ class _QuranTabState extends State<QuranTab> {
                     scrollDirection: Axis.horizontal,
                     itemCount: mostRecent.length,
                     itemBuilder: (context, index) {
-                      return Container(
+                      return InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, SuraDetailsScreen.routeName, arguments: mostRecent[index]);
+                          addToMostRecent(mostRecent[index]);
+                        },
+                        child: Container(
 
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        decoration: BoxDecoration(
-                          color: AppColors.gold,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          decoration: BoxDecoration(
+                            color: AppColors.gold,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
 
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(mostRecent[index].nameEn, style: TextStyles.titleLargeStyle(color: AppColors.black),),
-                                Text(mostRecent[index].nameAr, style: TextStyles.titleLargeStyle(color: AppColors.black),),
-                                Text(mostRecent[index].versesNumber.toString(), style: TextStyles.titleSmallStyle(color: AppColors.black),),
-                              ],),
-                            Image.asset("assets/images/img_most_recent.png"),
-                          ],
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(mostRecent[index].nameEn, style: TextStyles.titleLargeStyle(color: AppColors.black),),
+                                  Text(mostRecent[index].nameAr, style: TextStyles.titleLargeStyle(color: AppColors.black),),
+                                  Text(mostRecent[index].versesNumber.toString(), style: TextStyles.titleSmallStyle(color: AppColors.black),),
+                                ],),
+                              Image.asset("assets/images/img_most_recent.png"),
+                            ],
+                          ),
                         ),
                       );
                     },

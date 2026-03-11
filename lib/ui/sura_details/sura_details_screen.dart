@@ -38,7 +38,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
           Positioned(
             bottom: 0,
             child: Image.asset(
-              "assets/images/mosque_gold.png",
+              "assets/images/mosque_gold.png", opacity: const AlwaysStoppedAnimation(.5) ,
             ),
           ),
           Column(
@@ -66,10 +66,12 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
               ) :Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Text(
-                    suraContent ??"",
-                    style: TextStyles.bodyMediumStyle(color: AppColors.gold),
-                    textAlign: TextAlign.center,
+                  child: SingleChildScrollView(
+                    child: Text(
+                      suraContent ??"",
+                      style: TextStyles.bodyMediumStyle(color: AppColors.gold),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
