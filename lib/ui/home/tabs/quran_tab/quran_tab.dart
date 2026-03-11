@@ -1,11 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:islami_application/constants/shared_preferences_constant.dart';
 import 'package:islami_application/theme/colors.dart';
 import 'package:islami_application/theme/text_styles.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/models/sura.dart';
 import 'package:islami_application/ui/home/tabs/quran_tab/widgets/sura_row.dart';
 import 'package:islami_application/ui/home/tabs/widgets/base_tab.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranTab extends StatefulWidget {
   const QuranTab({super.key});
@@ -16,9 +18,11 @@ class QuranTab extends StatefulWidget {
 
 class _QuranTabState extends State<QuranTab> {
   List<Sura> currentList = [];
+  List<Sura> mostRecent = [];
 
   @override
   void initState() {
+    _getMostRecentList();
     super.initState();
     for (int i = 0; i < quranList.length; i++) {
       currentList.add(quranList[i]);
@@ -74,13 +78,59 @@ class _QuranTabState extends State<QuranTab> {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 20)),
-          if (currentList.length == 114)
+          if (currentList.length == 114) ...[
+            if (mostRecent.isNotEmpty) ...[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "Most Recent",
+                    style: TextStyles.titleSmallStyle(),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 160,
+                  child: ListView.separated(
+                    padding: EdgeInsets.all(20),
+                    separatorBuilder: (context, index) => SizedBox(width: 16),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: mostRecent.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: AppColors.gold,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(mostRecent[index].nameEn, style: TextStyles.titleLargeStyle(color: AppColors.black),),
+                                Text(mostRecent[index].nameAr, style: TextStyles.titleLargeStyle(color: AppColors.black),),
+                                Text(mostRecent[index].versesNumber.toString(), style: TextStyles.titleSmallStyle(color: AppColors.black),),
+                              ],),
+                            Image.asset("assets/images/img_most_recent.png"),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text("Suras List", style: TextStyles.titleSmallStyle()),
               ),
             ),
+          ],
           SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverList.separated(
             itemCount: currentList.length,
@@ -90,7 +140,10 @@ class _QuranTabState extends State<QuranTab> {
                   horizontal: 16,
                   vertical: 16,
                 ),
-                child: SuraRow(sura: currentList[index]),
+                child: SuraRow(
+                  sura: currentList[index],
+                  onTap: addToMostRecent,
+                ),
               );
             },
             separatorBuilder: (context, index) =>
@@ -111,5 +164,43 @@ class _QuranTabState extends State<QuranTab> {
         .toList();
 
     setState(() {});
+  }
+
+  Future<void> _getMostRecentList() async {
+    mostRecent = [];
+
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+
+    List<String>? mostRecentList =
+        await sharedPreference.getStringList(
+          SharedPreferencesConstant.mostRecent.value,
+        ) ??
+        [];
+    for (var element in mostRecentList) {
+      var id = int.parse(element);
+      mostRecent.add(quranList[id - 1]);
+    }
+    setState(() {});
+
+  }
+
+  Future<void> addToMostRecent(Sura sura) async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    List<String>? mostRecentList =
+        await sharedPreference.getStringList(
+          SharedPreferencesConstant.mostRecent.value,
+        ) ??
+        [];
+
+    mostRecentList.removeWhere((element) => element == sura.id.toString());
+
+    mostRecentList = [sura.id.toString(), ...mostRecentList];
+
+    await sharedPreference.setStringList(
+      SharedPreferencesConstant.mostRecent.value,
+      mostRecentList,
+    );
+
+    _getMostRecentList();
   }
 }
