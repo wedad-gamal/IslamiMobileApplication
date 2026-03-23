@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:islami_application/theme/text_styles.dart';
-import 'package:islami_application/ui/home/tabs/sebha_tab/models/sebha.dart';
 import 'package:islami_application/ui/home/tabs/widgets/base_tab.dart';
+import 'models/sebha.dart';
 
 class SebhaTab extends StatefulWidget {
   const SebhaTab({super.key});
@@ -12,19 +11,22 @@ class SebhaTab extends StatefulWidget {
 }
 
 class _SebhaTabState extends State<SebhaTab> {
-  late int counter;
+  int counter = 0;
   int zakrIndex = 0;
   double turns = 0.0;
-  PageController sebhaController = PageController();
+  final PageController sebhaController = PageController();
+
 
   @override
-  void initState() {
-    super.initState();
-    counter = 0;
+  void dispose() {
+    sebhaController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return BaseTab(
       image: "assets/images/sebha_background.png",
       child: Column(
@@ -33,7 +35,7 @@ class _SebhaTabState extends State<SebhaTab> {
           SafeArea(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Image.asset("assets/images/logo.png")],
+              children: [Image.asset("assets/images/logo.png",width: width * 0.6,)],
             ),
           ),
 
@@ -45,15 +47,13 @@ class _SebhaTabState extends State<SebhaTab> {
           InkWell(
             onTap: () {
               setState(() {
-                HapticFeedback.vibrate();
                 counter++;
-                // 2. Increment rotation (e.g., 1/33 of a circle per click)
                 turns += 1 / 30;
                 if (counter == 30) {
-                  _changeZakr(zakrIndex);
+                  _changeZakr(null);
                   sebhaController.animateToPage(
                     zakrIndex,
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
                   );
                 }
@@ -61,14 +61,13 @@ class _SebhaTabState extends State<SebhaTab> {
             },
             child: Container(
               padding: EdgeInsets.all(30),
-
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: AlignmentGeometry.center,
                 children: [
                   Positioned(
-                    top: -75,
-                    right: 115,
+                    top: height * 0.085 * -1,
+                    right: width * 0.275,
                     child: Image.asset(
                       "assets/images/sebha_head.png",
                       width: 70,
@@ -80,17 +79,21 @@ class _SebhaTabState extends State<SebhaTab> {
                     child: Image.asset("assets/images/sebha_body.png"),
                   ),
                   Column(
-                    spacing: 20,
+
                     children: [
                       Container(
                         height: 100,
                         width: 250,
                         alignment: Alignment.bottomCenter,
-
                         child: PageView.builder(
                           controller: sebhaController,
                           scrollDirection: Axis.horizontal,
                           itemCount: sebhaList.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _changeZakr(index);
+                            });
+                          },
                           itemBuilder: (context, index) => Container(
                             alignment: Alignment.bottomCenter,
                             child: Text(
@@ -101,7 +104,7 @@ class _SebhaTabState extends State<SebhaTab> {
                           ),
                         ),
                       ),
-
+                      SizedBox(height: 20,),
                       Text(
                         counter.toString(),
                         style: TextStyles.bodyLargeStyle(fontSize: 36),
@@ -119,13 +122,8 @@ class _SebhaTabState extends State<SebhaTab> {
     );
   }
 
-  void _changeZakr(int value) {
+  void _changeZakr(int? index) {
     counter = 0;
-    zakrIndex++;
-    if (zakrIndex == sebhaList.length) {
-      zakrIndex = 1;
-    }
-
-    debugPrint(zakrIndex.toString());
+    zakrIndex = index ?? (zakrIndex + 1) % sebhaList.length;
   }
 }
